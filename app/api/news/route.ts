@@ -8,7 +8,7 @@ export async function GET(request: Request) {
     const data = await fetchNews(page, size)
     return Response.json(data)
   } catch (error) {
-    console.error("[v0] Failed to fetch news:", error)
+    console.error("Failed to fetch news:", error)
     return Response.json({ error: "Failed to load news" }, { status: 502 })
   }
 }

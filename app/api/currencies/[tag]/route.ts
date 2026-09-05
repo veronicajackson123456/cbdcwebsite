@@ -9,7 +9,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ tag
     }
     return Response.json(data)
   } catch (error) {
-    console.error("[v0] Failed to fetch currency:", error)
+    console.error("Failed to fetch currency:", error)
     return Response.json({ error: "Failed to load currency" }, { status: 502 })
   }
 }
