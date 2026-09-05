@@ -1,9 +1,18 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, ExternalLink, FileText } from "lucide-react"
-import { fetchCurrencyByTag, fetchNews, formatDate } from "@/lib/cbdc-api"
+import { ArrowLeft, ExternalLink } from "lucide-react"
+import {
+  fetchCurrencyByTag,
+  fetchNews,
+  formatDate,
+  formatYear,
+  DETAIL_FIELD_ORDER,
+  FIELD_LABELS,
+  type Currency,
+} from "@/lib/cbdc-api"
 import { StatusBadge } from "@/components/status-badge"
 import { WatchButton } from "@/components/watch-button"
+import { CurrencyTimeline } from "@/components/currency-timeline"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 
@@ -14,21 +23,34 @@ export async function generateMetadata({ params }: { params: Promise<{ tag: stri
   const currency = await fetchCurrencyByTag(tag).catch(() => null)
   if (!currency) return { title: "Currency not found — CBDC Tracker" }
   return {
-    title: `${currency.digitalCurrency} — ${currency.country} | CBDC Tracker`,
+    title: `${currency.digitalCurrency} (${currency.country}) — CBDC Tracker`,
     description: currency.description?.slice(0, 160),
   }
 }
 
-const FACTS: { label: string; get: (c: NonNullable<Awaited<ReturnType<typeof fetchCurrencyByTag>>>) => string }[] = [
-  { label: "Country", get: (c) => c.country },
-  { label: "Central bank", get: (c) => c.centralBank },
-  { label: "Type", get: (c) => c.type },
-  { label: "Structure", get: (c) => c.structure || "—" },
-  { label: "Technology", get: (c) => c.technologyName || c.technology || "—" },
-  { label: "DLT basis", get: (c) => c.dlt || "—" },
-  { label: "Cross-border project", get: (c) => (c.crossBorderProject ? "Yes" : "No") },
-  { label: "Announced", get: (c) => (c.announcementYear ? new Date(c.announcementYear).getFullYear().toString() : "—") },
-]
+const LINK_FIELDS = new Set(["announcementLink", "whitepaperLink"])
+const LONG_TEXT_FIELDS = new Set(["goals", "description", "governanceStructure"])
+
+function LinkFieldValue({ value }: { value: string }) {
+  const url = value.split(/\s+/)[0]
+  let host = url
+  try {
+    host = new URL(url).hostname
+  } catch {
+    // not an absolute URL — fall back to the raw text
+  }
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+    >
+      <ExternalLink className="size-3.5" />
+      {host}
+    </a>
+  )
+}
 
 export default async function CurrencyDetailPage({ params }: { params: Promise<{ tag: string }> }) {
   const { tag } = await params
@@ -36,7 +58,13 @@ export default async function CurrencyDetailPage({ params }: { params: Promise<{
   if (!currency) notFound()
 
   const news = await fetchNews(0, 100).catch(() => null)
-  const relatedNews = news?.content.filter((item) => item.currencyTags.some((t) => t.name === tag)).slice(0, 5) ?? []
+  const relatedNews = news?.content.filter((item) => item.currencyTags.some((t) => t.name === tag)) ?? []
+
+  const shortFacts = DETAIL_FIELD_ORDER.filter(
+    (key) => !LONG_TEXT_FIELDS.has(key) && !LINK_FIELDS.has(key) && Boolean(currency[key as keyof Currency]),
+  )
+  const longFacts = DETAIL_FIELD_ORDER.filter((key) => LONG_TEXT_FIELDS.has(key) && Boolean(currency[key as keyof Currency]))
+  const linkFacts = DETAIL_FIELD_ORDER.filter((key) => LINK_FIELDS.has(key) && Boolean(currency[key as keyof Currency]))
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
@@ -56,93 +84,60 @@ export default async function CurrencyDetailPage({ params }: { params: Promise<{
             </h1>
             <StatusBadge status={currency.status} />
           </div>
-          <p className="text-sm text-muted-foreground">
-            {currency.country} · {currency.centralBank}
-          </p>
+          <p className="text-sm text-muted-foreground">{currency.country}</p>
         </div>
         <WatchButton tag={currency.tag} />
       </div>
 
       <div className="mb-8 grid grid-cols-2 gap-4 rounded-lg border border-border bg-card p-5 sm:grid-cols-4">
-        {FACTS.map((fact) => (
-          <div key={fact.label}>
-            <p className="text-xs text-muted-foreground">{fact.label}</p>
-            <p className="mt-1 text-sm font-medium text-foreground">{fact.get(currency)}</p>
+        {shortFacts.map((key) => (
+          <div key={key}>
+            <p className="text-xs text-muted-foreground">{FIELD_LABELS[key] ?? key}</p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              {key === "announcementYear"
+                ? formatYear(currency.announcementYear)
+                : String(currency[key as keyof Currency])}
+            </p>
           </div>
         ))}
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="flex flex-col gap-6 lg:col-span-2">
-          {currency.description && (
-            <Card>
+          {longFacts.map((key) => (
+            <Card key={key}>
               <CardHeader>
-                <CardTitle>Overview</CardTitle>
+                <CardTitle>{FIELD_LABELS[key] ?? key}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm leading-relaxed text-muted-foreground">{currency.description}</p>
+                <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
+                  {String(currency[key as keyof Currency])}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+
+          {linkFacts.length > 0 && (
+            <Card>
+              <CardContent className="flex flex-col gap-3 pt-6">
+                {linkFacts.map((key) => (
+                  <div key={key}>
+                    <p className="text-xs text-muted-foreground">{FIELD_LABELS[key] ?? key}</p>
+                    <div className="mt-1">
+                      <LinkFieldValue value={String(currency[key as keyof Currency])} />
+                    </div>
+                  </div>
+                ))}
               </CardContent>
             </Card>
           )}
 
-          {currency.goals && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Policy goals</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm leading-relaxed text-muted-foreground">{currency.goals}</p>
-              </CardContent>
-            </Card>
-          )}
-
-          {currency.governanceStructure && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Governance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm leading-relaxed text-muted-foreground">{currency.governanceStructure}</p>
-              </CardContent>
-            </Card>
-          )}
-
-          {(currency.announcementLink || currency.whitepaperLink) && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Sources</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-2">
-                {currency.announcementLink && (
-                  <a
-                    href={currency.announcementLink.split(/\s+/)[0]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-                  >
-                    <ExternalLink className="size-3.5" />
-                    Announcement source
-                  </a>
-                )}
-                {currency.whitepaperLink && (
-                  <a
-                    href={currency.whitepaperLink.split(/\s+/)[0]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-                  >
-                    <FileText className="size-3.5" />
-                    Whitepaper
-                  </a>
-                )}
-              </CardContent>
-            </Card>
-          )}
+          <CurrencyTimeline tag={tag} />
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Related news</CardTitle>
+            <CardTitle>News</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-3">
             {relatedNews.length ? (

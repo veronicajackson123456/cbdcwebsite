@@ -34,7 +34,7 @@ export default async function DashboardPage() {
           Live global intelligence
         </span>
         <h1 className="max-w-2xl text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Every central bank digital currency initiative, tracked in one place
+          Today&apos;s Central Bank Digital Currencies Status
         </h1>
         <p className="max-w-xl text-pretty text-sm leading-relaxed text-muted-foreground">
           Monitoring {currencies.length} CBDC projects across {countryCount} countries — from early research to

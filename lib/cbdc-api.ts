@@ -112,6 +112,68 @@ export function fetchHistory(page = 0, size = 20) {
   return upstreamFetch<Page<HistoryEntry>>(`/history-of-changes?page=${page}&size=${size}`, 120)
 }
 
+export function fetchHistoryByTag(tag: string, page = 0, size = 50) {
+  return upstreamFetch<Page<HistoryEntry>>(
+    `/history-of-changes?page=${page}&size=${size}&tags=${encodeURIComponent(tag)}`,
+    120,
+  )
+}
+
+export interface ColumnDef {
+  name: string
+  title: string
+  hideable: boolean
+  sortable: boolean
+  filterable: boolean
+  visible: boolean
+  default: boolean
+}
+
+export function fetchColumns() {
+  return upstreamFetch<ColumnDef[]>("/currencies/columns", 3600)
+}
+
+/**
+ * Fallback field-name labels matching the original cbdctracker.org "/api/currencies/columns"
+ * response, used if the live columns endpoint is unreachable. Order mirrors the order fields
+ * are rendered on the original currency detail page.
+ */
+export const FIELD_LABELS: Record<string, string> = {
+  digitalCurrency: "Digital currency",
+  country: "Country / Region",
+  centralBank: "Central Bank(s)",
+  announcementYear: "Announcement Year",
+  status: "Status",
+  updateRate: "Update rate",
+  type: "Retail/Wholesale",
+  structure: "Structure",
+  technology: "Technology Provider",
+  technologyName: "Technology",
+  governanceStructure: "Governance structure",
+  dlt: "DLT / non-DLT",
+  goals: "Main motivation/goals of the CBDC",
+  description: "Description",
+  announcementLink: "Link to announcement",
+  whitepaperLink: "Link to whitepaper",
+}
+
+/** Field order matching the original currency detail page, excluding fields shown in the header. */
+export const DETAIL_FIELD_ORDER = [
+  "centralBank",
+  "announcementYear",
+  "status",
+  "type",
+  "structure",
+  "technology",
+  "technologyName",
+  "governanceStructure",
+  "dlt",
+  "goals",
+  "description",
+  "announcementLink",
+  "whitepaperLink",
+]
+
 export const STATUS_COLORS: Record<CbdcStatus, string> = {
   Launched: "var(--status-launched)",
   Pilot: "var(--status-pilot)",
