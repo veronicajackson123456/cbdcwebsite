@@ -87,9 +87,9 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.78 0.13 82 / 50%);
   --status-launched: oklch(0.72 0.17 155);
-  --status-pilot: oklch(0.68 0.14 235);
-  --status-poc: oklch(0.78 0.13 82);
-  --status-research: oklch(0.6 0.014 258);
+  --status-pilot: oklch(0.78 0.15 75);
+  --status-poc: oklch(0.68 0.18 305);
+  --status-research: oklch(0.68 0.14 235);
   --status-cancelled: oklch(0.65 0.2 25);
 }
 

@@ -4,12 +4,25 @@ import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import { ComposableMap, Geographies, Geography } from "react-simple-maps"
 import type { Currency } from "@/lib/cbdc-api"
-import { statusDotColor } from "@/components/status-badge"
 import { splitCountryNames } from "@/lib/country-map"
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
 
-const STATUS_PRIORITY = ["Launched", "Pilot", "Proof of concept", "Research", "Cancelled"] as const
+// When a country has multiple projects, keep a live launch as the strongest signal;
+// otherwise surface a cancellation before earlier-stage initiatives like pilots or research.
+const STATUS_PRIORITY = ["Launched", "Cancelled", "Pilot", "Proof of concept", "Research"] as const
+
+const STATUS_COLORS: Record<(typeof STATUS_PRIORITY)[number], string> = {
+  Launched: "var(--status-launched)",
+  Pilot: "var(--status-pilot)",
+  "Proof of concept": "var(--status-poc)",
+  Research: "var(--status-research)",
+  Cancelled: "var(--status-cancelled)",
+} as const
+
+function countryStatusColor(status: (typeof STATUS_PRIORITY)[number]) {
+  return STATUS_COLORS[status]
+}
 
 interface CountryInfo {
   status: (typeof STATUS_PRIORITY)[number]
@@ -58,7 +71,7 @@ export function WorldMap({ currencies }: { currencies: Currency[] }) {
             geographies.map((geo) => {
               const name = geo.properties.name as string
               const info = byCountry.get(name) ?? null
-              const fill = info ? statusDotColor(info.status) : "var(--muted)"
+              const fill = info ? countryStatusColor(info.status) : "var(--muted)"
               return (
                 <Geography
                   key={geo.rsmKey}
