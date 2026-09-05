@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   title: 'CBDC Tracker — Central Bank Digital Currency Intelligence',
   description:
     'Track the status of every Central Bank Digital Currency initiative worldwide — launches, pilots, research, and cancellations across every country and central bank.',
-  generator: 'v0.app',
   icons: {
     icon: [
       { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },

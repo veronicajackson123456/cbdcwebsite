@@ -5,7 +5,7 @@ export async function GET() {
     const data = await fetchCountries()
     return Response.json(data)
   } catch (error) {
-    console.error("[v0] Failed to fetch countries:", error)
+    console.error("Failed to fetch countries:", error)
     return Response.json({ error: "Failed to load countries" }, { status: 502 })
   }
 }

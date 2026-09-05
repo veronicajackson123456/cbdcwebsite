@@ -8,7 +8,7 @@ export async function GET(request: Request) {
     const data = await fetchHistory(page, size)
     return Response.json(data)
   } catch (error) {
-    console.error("[v0] Failed to fetch history:", error)
+    console.error("Failed to fetch history:", error)
     return Response.json({ error: "Failed to load history" }, { status: 502 })
   }
 }
