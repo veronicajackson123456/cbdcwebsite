@@ -191,3 +191,52 @@ export function formatYear(ms: number | null | undefined): string {
   if (!ms) return "—"
   return new Date(ms).getFullYear().toString()
 }
+
+export const MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+]
+
+export function formatMonthYear(month: number, year: number): string {
+  return `${MONTH_NAMES[month - 1] ?? month} ${year}`
+}
+
+/** Properties that hold one or more URLs, always rendered as link chips (never diffed inline). */
+export const LINK_PROPERTIES = new Set(["announcementLink", "whitepaperLink"])
+
+export type ChangeGroupKind = "status" | "added" | "updated"
+
+export interface ChangeGroup {
+  kind: ChangeGroupKind
+  changes: HistoryChange[]
+}
+
+/**
+ * Splits a currency's changes for a given month into up to three groups, matching how the
+ * original cbdctracker.org timeline renders them: a "status" change always gets its own card,
+ * and remaining fields are split into "added" (previously empty) vs "updated" (had a prior value).
+ */
+export function groupHistoryChanges(changes: HistoryChange[]): ChangeGroup[] {
+  const groups: ChangeGroup[] = []
+  const statusChange = changes.find((c) => c.property === "status")
+  if (statusChange) groups.push({ kind: "status", changes: [statusChange] })
+
+  const rest = changes.filter((c) => c.property !== "status")
+  const added = rest.filter((c) => c.valueOld === null || c.valueOld === undefined || c.valueOld === "")
+  const updated = rest.filter((c) => !(c.valueOld === null || c.valueOld === undefined || c.valueOld === ""))
+
+  if (added.length > 0) groups.push({ kind: "added", changes: added })
+  if (updated.length > 0) groups.push({ kind: "updated", changes: updated })
+
+  return groups
+}
