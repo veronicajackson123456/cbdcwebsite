@@ -4,6 +4,8 @@ import { fetchCurrencies, fetchHistory, fetchNews, formatDate, STATUS_LIST, type
 import { WorldMap } from "@/components/world-map"
 import { StatusChart } from "@/components/status-chart"
 import { StatusBadge } from "@/components/status-badge"
+import { CurrencyTable } from "@/components/currency-table"
+import { CbdcProjectInfo } from "@/components/cbdc-project-info"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
@@ -82,7 +84,19 @@ export default async function DashboardPage() {
         </Card>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-2">
+      <section className="mb-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>All tracked currencies</CardTitle>
+            <CardDescription>Search, filter, and drill into every tracked CBDC initiative</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CurrencyTable currencies={currencies} />
+          </CardContent>
+        </Card>
+      </section>
+
+      <section className="mb-8 grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
@@ -157,6 +171,10 @@ export default async function DashboardPage() {
             )}
           </CardContent>
         </Card>
+      </section>
+
+      <section className="mt-8">
+        <CbdcProjectInfo />
       </section>
     </main>
   )

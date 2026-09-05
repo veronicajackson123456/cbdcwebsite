@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { Menu, LandmarkIcon, Star } from "lucide-react"
+import { Menu, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
@@ -23,13 +23,15 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/75">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="flex size-8 items-center justify-center rounded-md bg-primary/15 text-primary">
-            <LandmarkIcon className="size-4" />
-          </span>
-          <span className="font-mono text-sm font-semibold tracking-tight text-foreground">
-            CBDC<span className="text-primary">.</span>Tracker
-          </span>
+        <Link href="/" className="flex items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element -- local SVG logo, no optimization needed */}
+          <img
+            src="/logos/cbdc-tracker-logo.svg"
+            alt="CBDC Tracker"
+            width={159}
+            height={26}
+            className="h-6 w-auto sm:h-[26px]"
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

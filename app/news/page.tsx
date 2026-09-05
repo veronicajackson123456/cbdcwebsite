@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ExternalLink } from "lucide-react"
+import { Calendar, ExternalLink, Link2 } from "lucide-react"
 import { fetchNews, formatDate } from "@/lib/cbdc-api"
 import { Card } from "@/components/ui/card"
 import { NewsPagination } from "@/components/news-pagination"
@@ -49,10 +49,15 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
               {item.abstract && (
                 <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">{item.abstract}</p>
               )}
-              <div className="mt-1 flex flex-wrap items-center gap-2 font-mono text-xs text-muted-foreground">
-                <span>{item.sourceName}</span>
-                <span aria-hidden="true">·</span>
-                <span>{formatDate(item.created)}</span>
+              <div className="mt-1 flex flex-wrap items-center gap-3 font-mono text-xs text-muted-foreground">
+                <span className="inline-flex items-center gap-1">
+                  <Calendar className="size-3" />
+                  {formatDate(item.created)}
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <Link2 className="size-3" />
+                  {item.sourceName}
+                </span>
                 {item.currencyTags[0] && (
                   <>
                     <span aria-hidden="true">·</span>

@@ -1,4 +1,5 @@
-import { Code2, ExternalLink, Mail, Send, UserRound } from "lucide-react"
+import { ExternalLink, Mail } from "lucide-react"
+import { GitHubIcon, LinkedInIcon, TelegramIcon } from "@/components/brand-icons"
 
 const PUBLICATIONS = [
   {
@@ -13,22 +14,26 @@ const PUBLICATIONS = [
 
 const CONTRIBUTORS = [
   { name: "Igor Mikhalev", href: "https://www.linkedin.com/in/mikhalev/" },
-  { name: "Igor Struchkov", href: "https://www.linkedin.com/in/igor-struchkov-7a4994163/" },
-  { name: "John Kiff", href: "https://www.linkedin.com/in/kiffmeister/" },
   { name: "Kaj Burchardi", href: "https://www.linkedin.com/in/kaj-burchardi-b1030242/" },
-  { name: "Jonas Gross", href: "https://www.linkedin.com/in/jonasgross94/" },
-  { name: "Atakan Kavuklu", href: "https://www.linkedin.com/in/atakan-kavuklu-b37315179/" },
   { name: "Bihao Song", href: "https://www.linkedin.com/in/bihaosong/" },
+  { name: "Igor Struchkov", href: "https://www.linkedin.com/in/igor-struchkov-7a4994163/" },
+  { name: "Jonas Gross", href: "https://www.linkedin.com/in/jonasgross94/" },
   { name: "Gourav Roy", href: "https://www.linkedin.com/in/gourav-roy-6b5ab4a4/" },
+  { name: "John Kiff", href: "https://www.linkedin.com/in/kiffmeister/" },
+  { name: "Atakan Kavuklu", href: "https://www.linkedin.com/in/atakan-kavuklu-b37315179/" },
   { name: "Arunabh Mishra", href: "https://ca.linkedin.com/in/arunabhmishra" },
 ]
 
 const ORGANIZATIONS = [
-  { name: "BCG", href: "https://www.bcg.com/" },
-  { name: "BCG Platinion", href: "https://bcgplatinion.com/" },
-  { name: "EY", href: "https://www.ey.com/" },
-  { name: "DEA (Digital Euro Association)", href: "https://home.digital-euro-association.de/en" },
-  { name: "Firmshift", href: "http://firmshift.com/" },
+  { name: "BCG", href: "https://www.bcg.com/", logo: "/logos/bcg.svg" },
+  { name: "BCG Platinion", href: "https://bcgplatinion.com/", logo: "/logos/bcg-platinion.svg" },
+  { name: "EY", href: "https://www.ey.com/", logo: "/logos/ey.svg" },
+  {
+    name: "DEA (Digital Euro Association)",
+    href: "https://home.digital-euro-association.de/en",
+    logo: "/logos/dea.svg",
+  },
+  { name: "Firmshift", href: "http://firmshift.com/", logo: "/logos/firmshift.svg" },
 ]
 
 export function SiteFooter() {
@@ -63,7 +68,7 @@ export function SiteFooter() {
               rel="noopener noreferrer"
               className="mt-3 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
             >
-              <Code2 className="size-3.5" />
+              <GitHubIcon className="size-3.5" />
               Github
             </a>
 
@@ -82,7 +87,7 @@ export function SiteFooter() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
               >
-                <Send className="size-3.5" />
+                <TelegramIcon className="size-3.5" />
                 Telegram chat
               </a>
             </div>
@@ -99,7 +104,7 @@ export function SiteFooter() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
                   >
-                    <UserRound className="size-3.5 shrink-0" />
+                    <LinkedInIcon className="size-3.5 shrink-0 text-[#0A66C2]" />
                     {person.name}
                   </a>
                 </li>
@@ -110,16 +115,17 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-4 border-t border-border/60 pt-6">
           <h2 className="text-xs font-semibold uppercase tracking-wide text-foreground">Contributing Organizations</h2>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="flex flex-wrap items-center gap-4">
             {ORGANIZATIONS.map((org) => (
               <a
                 key={org.href}
                 href={org.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-medium text-muted-foreground hover:text-foreground"
+                className="flex h-12 items-center rounded-md bg-white px-4 transition-opacity hover:opacity-80"
               >
-                {org.name}
+                {/* eslint-disable-next-line @next/next/no-img-element -- local SVG partner logos, rendered at natural size */}
+                <img src={org.logo} alt={org.name} className="h-6 w-auto sm:h-7" />
               </a>
             ))}
           </div>
