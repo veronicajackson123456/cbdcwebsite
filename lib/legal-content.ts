@@ -21,78 +21,24 @@ export const legalDocuments: LegalDocument[] = [
   {
     slug: "privacy",
     title: "Privacy Policy",
-    description: "How CBDC LLC handles information when you browse, contact us, or use our research tools.",
+    description: "How CBDC LLC handles personal information when you browse the Site or contact us.",
     category: "Privacy and data",
     lastUpdated: "28 October 2026",
     sections: [
-      {
-        heading: "Scope and company information",
-        paragraphs: [
-          "This policy describes the information involved when you browse CBDC LLC's public research site, use its browser-based watchlist, or contact the company. It does not govern external sites you choose to visit.",
-          contact,
-        ],
-      },
-      {
-        heading: "Information this site handles",
-        paragraphs: [
-          "If you email us, we receive the sender address, any name you include, the message, attachments, and email headers needed to respond. This project has no account, sign-in, contact form, newsletter signup, or working email-alert signup. The watchlist interface saves project tags in your browser and does not transmit those tags to the site's API. Its email-alert area states that alerts are unavailable and does not collect an address.",
-          "The hosting platform may process technical request information such as your IP address, requested URL, request time, browser and device headers, referrer, and security or error signals to deliver and protect pages.",
-        ],
-      },
-      {
-        heading: "Hosting and service providers",
-        paragraphs: [
-          "Vercel provides hosting for this website and may process connection and request information needed to deliver, secure, and maintain it. Hosting-log retention depends on the active Vercel account, plan, and settings.",
-          "The site requests public currency, country, history, and news data from the CBDC Tracker API at cbdctracker.org/api. The current code makes those requests from the app server. The API provider receives server request metadata, but the site does not forward a visitor's browser IP address, email, or watchlist to that API in this code path.",
-          "Public MX records for cbdc.ac point to mx1.privateemail.com and mx2.privateemail.com, the routing used by Namecheap Private Email. When you email info@cbdc.ac, that mail provider handles the message and recipient address. Mailbox settings and retention are not visible in the website source.",
-        ],
-      },
-      {
-        heading: "Analytics",
-        paragraphs: [
-          "The source includes @vercel/analytics/next and renders Vercel Analytics only when the application runs in production mode. The currently live public site was observed requesting its Insights script through the same-origin path /_vercel/insights/script.js. No custom analytics events or separate advertising analytics SDK were found in this project. Vercel describes Web Analytics as cookieless and uses a transient, request-derived visitor identifier that changes daily to report page views and aggregate referrer, device, browser, and location information. Analytics-event retention is controlled by the Vercel account, plan, and project settings; the active production settings could not be confirmed here.",
-        ],
-      },
-      {
-        heading: "Browser storage, video, maps, and images",
-        paragraphs: [
-          "The watchlist stores selected project tags in the browser's localStorage under the cbdc-watchlist key. This is functional browser storage, not a cookie; it remains until you remove the entries or clear this site's browser data. The current watchlist code does not transmit those saved tags to the site's server.",
-          "The interactive map requests a static country-boundary file from cdn.jsdelivr.net when the map is displayed. This is a direct browser request, so the CDN receives ordinary connection metadata such as IP address, browser information, and referrer. The map uses static boundaries; the site does not request device geolocation or map tiles.",
-          "Pages with an embedded YouTube video load the player from youtube-nocookie.com in YouTube's Privacy Enhanced Mode. This mode reduces personalization based on embedded views, but it does not prevent the player from making a third-party request or receiving connection, browser/device, referrer, and playback information. The iframe is lazy-loaded but is not gated by an on-site consent control; YouTube may use its own cookies or storage under its policies.",
-          "Some news records include image URLs supplied with the source data. The current live site serves thumbnails directly from cbdctracker.org/images; this project also loads feed-supplied image URLs directly in the browser, so the image host receives ordinary request metadata such as IP address, browser/device information, and the requested image path. The host may vary if feed data changes. External source links otherwise receive a request only if you choose to open them.",
-        ],
-      },
-      {
-        heading: "Purposes and legal basis",
-        bullets: [
-          "Respond to email enquiries, correction reports, and accessibility requests.",
-          "Deliver, secure, maintain, and troubleshoot the website and its public research tools.",
-          "Understand broad site usage through production Vercel Analytics.",
-          "Meet legal obligations and protect the service, its users, and the company's rights.",
-        ],
-        paragraphs: [
-          "Where privacy law requires a legal basis, it depends on the purpose and jurisdiction, including responding to a request, operating and securing the site where legitimate interests are permitted, or meeting a legal obligation. This project does not currently implement an on-site cookie-consent banner or preference center. The embedded video and other third-party requests are not gated by such a control; if your jurisdiction requires prior consent for a particular service, this implementation has not been configured to collect it.",
-        ],
-      },
-      {
-        heading: "Retention and sharing",
-        paragraphs: [
-          "The website source does not set a mailbox storage or deletion period. The mailbox provider and account settings govern retention, and no fixed period could be verified from this project. The browser watchlist remains until you clear it. Vercel hosting logs and analytics are retained according to the live provider account and plan settings. Third-party providers apply their own retention terms to requests they receive.",
-          "CBDC LLC does not sell or rent personal information. The code reviewed contains no advertising network, ad pixel, or targeted-advertising SDK. Information may be processed by the hosting and analytics provider, the email service, and the video, map-CDN, and article-image providers described above. Providers may process information in countries other than your own; the exact locations and account-level safeguards are controlled by their services and could not be verified from this repository.",
-        ],
-      },
-      {
-        heading: "Your privacy rights",
-        paragraphs: [
-          "Depending on your location and applicable law, you may be able to request access to, correction of, deletion of, restriction of, or a copy of personal information; object to certain processing; withdraw consent where processing relies on consent; or complain to a privacy regulator. Send requests or questions to info@cbdc.ac and identify the right or information involved. We may request information needed to verify a request and will respond as required by applicable law.",
-        ],
-      },
-      {
-        heading: "Children",
-        paragraphs: [
-          "The site is a general information resource and is not designed to collect information from children. Please contact info@cbdc.ac if you believe a child has sent personal information to the company.",
-        ],
-      },
+      { heading: "Who we are", paragraphs: ["This policy explains how CBDC LLC (\"we\", \"us\") handles personal information when you visit cbdc.ac (the \"Site\") or contact us.", "CBDC LLC is a Wyoming limited liability company, Filing ID 2026-002064943. Registered address: 5830 E 2nd St, Ste 7000 #38378, Casper, WY 82609, USA. Operating address: 1875 Mission Street, Ste 103, San Francisco, CA 94103, USA.", "We are the controller of the personal information described in this policy. You can contact us about privacy at info@cbdc.ac."] },
+      { heading: "Information we collect", paragraphs: ["When you email us, we receive your email address, any name you give, the content of your message and any attachments.", "When you browse the Site, our hosting provider automatically processes technical information needed to deliver and protect the Site, including your IP address, browser and device type, pages requested, referring page, and date and time of your visit.", "We use privacy-focused analytics that count page views and report aggregate information such as referring sites, device type, browser and approximate country. These analytics do not use cookies and do not identify you personally.", "The Site has no user accounts, sign-in, newsletter or contact form. We do not ask for payment details. We do not knowingly collect special category data, and we ask that you do not send it to us."] },
+      { heading: "How we use your information", bullets: ["Reply to your enquiries, including correction, accessibility and commercial enquiries.", "Deliver, secure, maintain and fix the Site.", "Understand, in aggregate, how the Site is used so we can improve it.", "Comply with our legal obligations and protect our rights."], paragraphs: ["We do not use your information for automated decision-making or profiling."] },
+      { heading: "Legal bases (UK and EU visitors)", paragraphs: ["Where the UK GDPR or EU GDPR applies, we rely on legitimate interests in responding to enquiries and operating, securing and improving the Site; contract where you contact us about advertising or sponsorship and we take steps towards an agreement; legal obligation where we must keep or disclose information by law; and consent where we ask for it, such as before loading embedded video. You can withdraw consent at any time."] },
+      { heading: "Who we share information with", paragraphs: ["We do not sell or rent personal information. We do not share personal information for cross-context behavioural advertising, as that term is used in California law.", "Vercel provides website hosting, security and cookieless analytics. Namecheap Private Email hosts email for info@cbdc.ac. jsDelivr delivers the map boundary file used by the World Tracker. The CBDC Tracker API at cbdctracker.org supplies currency, country and news data, including some news images. Google / YouTube provides embedded video only after you click to play.", "We may disclose information where required by law, to a court or regulator, or to protect our rights, our users or the public. The Site does not use advertising networks, ad tracking pixels or targeted advertising. Sponsored content is labelled and does not involve sharing your personal information with sponsors."] },
+      { heading: "Cookies, browser storage and embedded content", paragraphs: ["We do not set cookies for analytics or advertising.", "If you use the Watchlist, your selected projects are saved in your own browser's local storage. This stays on your device and is not sent to us. You can delete it by clearing the Site's data in your browser.", "Videos are shown as a placeholder. The YouTube player, served in privacy-enhanced mode, loads only when you click to play. When it loads, YouTube may set its own cookies and receive information about your device and viewing. YouTube's privacy policy then applies.", "When you view the World Tracker map or news images, your browser requests files directly from jsDelivr and the image host. Those providers receive standard connection information such as your IP address."] },
+      { heading: "Links to other websites", paragraphs: ["The Site links to official and third-party sources. We are not responsible for their privacy practices. Check their policies before giving them information."] },
+      { heading: "How long we keep information", paragraphs: ["We keep personal information only as long as we need it: emails and enquiries for 24 months after our last contact, unless they relate to a contract or dispute, in which case for 6 years after it ends; hosting logs for the period set by our hosting provider; aggregate analytics according to provider settings; and Watchlist data on your device until you delete it."] },
+      { heading: "International transfers", paragraphs: ["We are based in the United States, and our providers may process information in the United States and other countries. Where UK or EU personal information is transferred to a country without an adequacy decision, we rely on appropriate safeguards, including the European Commission's Standard Contractual Clauses, the UK International Data Transfer Addendum, or a provider's certification under the EU-US Data Privacy Framework and its UK Extension, where available. Contact us for more information."] },
+      { heading: "Security", paragraphs: ["We use reputable providers and reasonable technical and organisational measures to protect personal information, including encrypted (HTTPS) connections. No method of transmission or storage is completely secure."] },
+      { heading: "Your rights", paragraphs: ["Depending on where you live, you may have the right to access, correct, delete, restrict or object to our use of personal information, receive a copy in a portable format, and withdraw consent where we rely on it.", "California residents have the right to know, delete and correct personal information, and to opt out of its sale or sharing. We do not sell or share personal information. We will not discriminate against you for exercising your rights.", "To exercise a right, email info@cbdc.ac and tell us which right and what information it concerns. We may need to verify your identity. We will respond within the time required by applicable law. You can complain to your data protection regulator. In the UK this is the Information Commissioner's Office (ico.org.uk); in the EU it is the supervisory authority in your country. We would appreciate the chance to deal with your concern first."] },
+      { heading: "Children", paragraphs: ["The Site is a general information resource and is not directed at children under 16. We do not knowingly collect their personal information. If you believe a child has sent us information, contact info@cbdc.ac and we will delete it."] },
+      { heading: "Changes to this policy", paragraphs: ["We may update this policy when our services or the law change. The Last updated date at the top shows when it was last revised. Significant changes will be highlighted on this page."] },
+      { heading: "Contact", paragraphs: ["CBDC LLC, 1875 Mission Street, Ste 103, San Francisco, CA 94103, USA. Email: info@cbdc.ac."] },
     ],
   },
   {
