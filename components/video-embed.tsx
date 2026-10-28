@@ -6,7 +6,7 @@ export function VideoEmbed({ title, videoId, source, duration }: { title: string
       <div className="aspect-video w-full bg-black">
         <iframe
           className="h-full w-full"
-          src={`https://www.youtube.com/embed/${videoId}`}
+          src={`https://www.youtube-nocookie.com/embed/${videoId}`}
           title={title}
           loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

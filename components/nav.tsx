@@ -56,9 +56,9 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Company",
     links: [
-      { href: "/about", label: "About CBDC LLC", description: "Who we are and our company details." },
+      { href: "/about", label: "About / Company", description: "Company details and management information." },
       { href: "/about#services", label: "Services & funding", description: "How our research is supported." },
-      { href: "/about#advertising", label: "Advertise or sponsor", description: "Advertising and sponsored content opportunities." }
+      { href: "/advertise", label: "Advertise or Sponsor", description: "Advertising and sponsored content opportunities." }
     ],
   },
 ]

@@ -1,5 +1,10 @@
 import type { Metadata } from "next"
 import { BookOpenText, CircleDollarSign, UsersRound } from "lucide-react"
+import {
+  companyDetails,
+  independentResourceDisclaimer,
+  nonIssuerDisclaimer,
+} from "@/lib/company-details"
 import { ContentPage, ContentSection, InfoCard } from "@/components/content-page"
 import { SponsorSection } from "@/components/sponsor-section"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,12 +16,13 @@ export const metadata: Metadata = {
 }
 
 const sectionLinks = [
-  { href: "#founder", label: "Founder" },
+  { href: "#founder", label: "Founder and Managing Member" },
+  { href: "#ubo", label: "Ultimate Beneficial Owner (UBO)" },
   { href: "#our-role", label: "Our role" },
   { href: "#important", label: "Important" },
   { href: "#company-details", label: "Company details" },
   { href: "#services", label: "Services & funding" },
-  { href: "#advertising", label: "Advertise or sponsor" },
+  { href: "#advertising", label: "Advertise or Sponsor" }
 ]
 
 const services = [
@@ -60,8 +66,8 @@ export default function AboutPage() {
       </nav>
 
       <div id="founder" className="scroll-mt-24">
-        <ContentSection title="Founder">
-          <InfoCard label="Founder and managing member" title="Tristan Marsh">
+        <ContentSection title="Founder and Managing Member">
+          <InfoCard label={companyDetails.founderTitle} title={companyDetails.founderName}>
             <div className="space-y-4">
               <p>
                 Tristan Marsh is the founder and managing member of CBDC LLC. He established the company to create a clear, independent public resource on central bank digital currencies at a time when official explanations were often technical and fragmented.
@@ -77,19 +83,23 @@ export default function AboutPage() {
         </ContentSection>
       </div>
 
+      <div id="ubo" className="scroll-mt-24">
+        <ContentSection title="Ultimate Beneficial Owner (UBO)">
+          <p>
+            Tristan Marsh is the ultimate beneficial owner of CBDC LLC and serves as its Founder and Managing Member.
+          </p>
+        </ContentSection>
+      </div>
+
       <div id="our-role" className="scroll-mt-24">
         <ContentSection title="Our role">
-          <p>
-            CBDC LLC is an independent information resource. It is not affiliated with any central bank or government. Content is general information, not financial, investment or legal advice.
-          </p>
+          <p>{independentResourceDisclaimer}</p>
         </ContentSection>
       </div>
 
       <div id="important" className="scroll-mt-24">
         <ContentSection title="Important">
-          <p className="max-w-4xl text-foreground">
-            CBDC LLC does not issue, sell, exchange, hold or transmit any digital currency, cryptoasset or token, and does not handle client funds.
-          </p>
+          <p className="max-w-4xl text-foreground">{nonIssuerDisclaimer}</p>
         </ContentSection>
       </div>
 
@@ -98,16 +108,30 @@ export default function AboutPage() {
           <dl className="divide-y divide-border rounded-xl border border-border bg-card/50 px-5">
             <div className="grid gap-1 py-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-6">
               <dt className="text-xs font-medium text-muted-foreground">Legal name</dt>
-              <dd className="text-sm font-medium text-foreground">CBDC LLC</dd>
+              <dd className="text-sm font-medium text-foreground">{companyDetails.name}</dd>
             </div>
             <div className="grid gap-1 py-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-6">
               <dt className="text-xs font-medium text-muted-foreground">Company / Filing ID</dt>
-              <dd className="text-sm font-medium text-foreground">2026-002064943</dd>
+              <dd className="text-sm font-medium text-foreground">{companyDetails.filingId}</dd>
+            </div>
+            <div className="grid gap-1 py-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-6">
+              <dt className="text-xs font-medium text-muted-foreground">Founder and Managing Member</dt>
+              <dd className="text-sm font-medium text-foreground">{companyDetails.founderName}</dd>
             </div>
             <div className="grid gap-1 py-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-6">
               <dt className="text-xs font-medium text-muted-foreground">Registered address</dt>
               <dd className="text-sm leading-6 text-foreground">
-                5830 E 2nd St, Ste 7000 #38378, Casper, WY 82609, USA
+                {companyDetails.registeredAddress.line1}
+                <br />
+                {companyDetails.registeredAddress.line2}
+              </dd>
+            </div>
+            <div className="grid gap-1 py-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-6">
+              <dt className="text-xs font-medium text-muted-foreground">Operating address</dt>
+              <dd className="text-sm leading-6 text-foreground">
+                {companyDetails.operatingAddress.line1}
+                <br />
+                {companyDetails.operatingAddress.line2}
               </dd>
             </div>
             <div className="grid gap-1 py-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-6">
@@ -115,9 +139,9 @@ export default function AboutPage() {
               <dd>
                 <a
                   className="text-sm font-medium text-primary underline-offset-4 hover:underline"
-                  href="mailto:info@cbdc.ac"
+                  href={`mailto:${companyDetails.email}`}
                 >
-                  info@cbdc.ac
+                  {companyDetails.email}
                 </a>
               </dd>
             </div>
