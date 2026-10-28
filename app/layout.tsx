@@ -11,6 +11,16 @@ const _geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 const _geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.cbdc.ac'),
+  alternates: { canonical: 'https://www.cbdc.ac' },
+  openGraph: {
+    type: 'website',
+    url: 'https://www.cbdc.ac',
+    siteName: 'CBDC LLC',
+    title: 'CBDC LLC — Independent Digital-Currency Research',
+    description:
+      'CBDC LLC is an independent digital-currency research and information company publishing plain-English guides, country and project trackers, and updates.',
+  },
   title: 'CBDC LLC — Independent Digital-Currency Research',
   description:
     'CBDC LLC is an independent digital-currency research and information company publishing plain-English guides, country and project trackers, and updates.',
