@@ -4,6 +4,7 @@ export type LegalSection = {
   heading: string
   paragraphs?: string[]
   bullets?: string[]
+  paragraphsAfterBullets?: string[]
 }
 
 export type LegalDocument = {
@@ -27,7 +28,7 @@ export const legalDocuments: LegalDocument[] = [
     sections: [
       { heading: "Who we are", paragraphs: ["This policy explains how CBDC LLC (\"we\", \"us\") handles personal information when you visit cbdc.ac (the \"Site\") or contact us.", "CBDC LLC is a Wyoming limited liability company, Filing ID 2026-002064943. Registered address: 5830 E 2nd St, Ste 7000 #38378, Casper, WY 82609, USA. Operating address: 1875 Mission Street, Ste 103, San Francisco, CA 94103, USA.", "We are the controller of the personal information described in this policy. You can contact us about privacy at info@cbdc.ac."] },
       { heading: "Information we collect", paragraphs: ["When you email us, we receive your email address, any name you give, the content of your message and any attachments.", "When you browse the Site, our hosting provider automatically processes technical information needed to deliver and protect the Site, including your IP address, browser and device type, pages requested, referring page, and date and time of your visit.", "We use privacy-focused analytics that count page views and report aggregate information such as referring sites, device type, browser and approximate country. These analytics do not use cookies and do not identify you personally.", "The Site has no user accounts, sign-in, newsletter or contact form. We do not ask for payment details. We do not knowingly collect special category data, and we ask that you do not send it to us."] },
-      { heading: "How we use your information", bullets: ["Reply to your enquiries, including correction, accessibility and commercial enquiries.", "Deliver, secure, maintain and fix the Site.", "Understand, in aggregate, how the Site is used so we can improve it.", "Comply with our legal obligations and protect our rights."], paragraphs: ["We do not use your information for automated decision-making or profiling."] },
+      { heading: "How we use your information", paragraphs: ["We use personal information only to:"], bullets: ["Reply to your enquiries, including correction, accessibility and commercial enquiries.", "Deliver, secure, maintain and fix the Site.", "Understand, in aggregate, how the Site is used so we can improve it.", "Comply with our legal obligations and protect our rights."], paragraphsAfterBullets: ["We do not use your information for automated decision-making or profiling."] },
       { heading: "Legal bases (UK and EU visitors)", paragraphs: ["Where the UK GDPR or EU GDPR applies, we rely on legitimate interests in responding to enquiries and operating, securing and improving the Site; contract where you contact us about advertising or sponsorship and we take steps towards an agreement; legal obligation where we must keep or disclose information by law; and consent where we ask for it, such as before loading embedded video. You can withdraw consent at any time."] },
       { heading: "Who we share information with", paragraphs: ["We do not sell or rent personal information. We do not share personal information for cross-context behavioural advertising, as that term is used in California law.", "Vercel provides website hosting, security and cookieless analytics. Namecheap Private Email hosts email for info@cbdc.ac. jsDelivr delivers the map boundary file used by the World Tracker. The CBDC Tracker API at cbdctracker.org supplies currency, country and news data, including some news images. Google / YouTube provides embedded video only after you click to play.", "We may disclose information where required by law, to a court or regulator, or to protect our rights, our users or the public. The Site does not use advertising networks, ad tracking pixels or targeted advertising. Sponsored content is labelled and does not involve sharing your personal information with sponsors."] },
       { heading: "Cookies, browser storage and embedded content", paragraphs: ["We do not set cookies for analytics or advertising.", "If you use the Watchlist, your selected projects are saved in your own browser's local storage. This stays on your device and is not sent to us. You can delete it by clearing the Site's data in your browser.", "Videos are shown as a placeholder. The YouTube player, served in privacy-enhanced mode, loads only when you click to play. When it loads, YouTube may set its own cookies and receive information about your device and viewing. YouTube's privacy policy then applies.", "When you view the World Tracker map or news images, your browser requests files directly from jsDelivr and the image host. Those providers receive standard connection information such as your IP address."] },
@@ -65,46 +66,29 @@ export const legalDocuments: LegalDocument[] = [
     lastUpdated: "28 October 2026",
     sections: [
       {
-        heading: "What the code currently uses",
+        heading: "How this site uses cookies and browser storage",
         paragraphs: [
-          "The code reviewed does not set a first-party cookie or provide a sign-in/session system. It uses browser localStorage for the watchlist, includes Vercel Analytics only in production, embeds YouTube video, and loads map and article-image resources from other providers. The currently live public site requests Vercel's Insights script through the same-origin path /_vercel/insights/script.js.",
+          "CBDC LLC does not set cookies for analytics or advertising. The Site has no account or sign-in system.",
+          "If you use the Watchlist, your selected projects are saved in your browser's local storage. This stays on your device and is not sent to us. You can remove it by clearing the Site's data in your browser.",
+          "Vercel Analytics is cookieless and reports aggregate information about visits and page views, such as referring sites, device type, browser and approximate country. It does not identify you personally.",
         ],
       },
       {
-        heading: "Functional browser storage",
+        heading: "Embedded video and third-party requests",
         paragraphs: [
-          "The watchlist stores selected project tags in localStorage under the cbdc-watchlist key so your list can persist in that browser. It is not a cookie and remains until you remove the tags or clear this site's browser data. Clearing it removes the saved watchlist.",
+          "Videos are initially shown as a placeholder. The YouTube player loads only when you click to play and is served in privacy-enhanced mode from youtube-nocookie.com. When it loads, YouTube may set its own cookies and receive information about your device and viewing. YouTube's privacy policy applies to that player.",
+          "The World Tracker map and news images are requested from third-party providers. Those providers receive standard connection information, such as your IP address and the requested resource. These requests are necessary to display the relevant map data and images.",
         ],
       },
       {
-        heading: "Analytics",
+        heading: "Your choices",
         paragraphs: [
-          "Vercel Analytics is rendered only in production mode. The currently live public site requests its Insights script through the same-origin path /_vercel/insights/script.js. Vercel describes Web Analytics as cookieless and uses a transient, request-derived visitor identifier that changes daily for aggregate visitor and page-view reporting. Analytics-event retention depends on the active Vercel account, plan, and settings; no on-site analytics preference control is implemented in this project.",
-        ],
-      },
-      {
-        heading: "Third-party video, map data, and images",
-        bullets: [
-          "The YouTube iframe is loaded lazily from youtube-nocookie.com in Privacy Enhanced Mode and is not gated by an on-site consent control. The mode reduces personalization from embedded views, but is not a promise of zero data processing or zero cookies; YouTube may receive connection, browser/device, referrer, and playback information and may use its own storage under its policies.",
-          "The interactive map fetches static boundary data from cdn.jsdelivr.net directly in the browser. This is a third-party request, not a cookie; the CDN receives ordinary connection metadata. The map does not use device geolocation or map tiles.",
-          "News thumbnails on the current live site are served directly from cbdctracker.org/images. The browser requests these image URLs directly, so the image host receives standard connection metadata and the requested image path; the host may vary if the upstream feed changes. This is a third-party content request, not a cookie.",
-        ],
-      },
-      {
-        heading: "Advertising technologies",
-        paragraphs: [
-          "The project source contains no automated advertising network, ad pixel, or targeted-advertising SDK. Advertising and sponsorship opportunities described on this site do not by themselves load an advertising tracker.",
-        ],
-      },
-      {
-        heading: "Your controls",
-        paragraphs: [
-          "There is currently no on-site cookie banner, consent manager, or preference center. You can use browser settings to clear this site's localStorage and cookies, block third-party cookies, or restrict embedded content. Clearing localStorage removes your watchlist. Blocking cookies alone may not prevent an iframe or external resource from making its initial network request. The site does not currently provide a per-provider opt-in control; if local law requires prior consent for a particular third-party request, this implementation has not been configured to obtain it.",
+          "There is no cookie banner or consent manager on the Site. You can clear browser storage, block third-party cookies, or restrict embedded content using your browser settings. Blocking cookies may not prevent a third-party resource from receiving the initial request after you choose to load it.",
         ],
       },
       {
         heading: "Questions",
-        paragraphs: ["For questions about this policy or a technology described here, contact info@cbdc.ac."],
+        paragraphs: ["For questions about this policy, contact info@cbdc.ac."],
       },
     ],
   },
