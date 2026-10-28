@@ -34,6 +34,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
                 <div className="mt-4 space-y-4 text-sm leading-7 text-muted-foreground">
                   {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                   {section.bullets && <ul className="list-disc space-y-2 pl-5">{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
+                  {section.paragraphsAfterBullets?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 </div>
               </section>
             ))}
