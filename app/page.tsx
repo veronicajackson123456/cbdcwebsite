@@ -3,6 +3,7 @@ import { ArrowRight, BookOpen, Globe2, Landmark, ShieldCheck } from "lucide-reac
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { VideoSection } from "@/components/video-embed"
+import { CardiffCollegeAd } from "@/components/cardiff-college-ad"
 import { LeicesterMerchAd } from "@/components/leicester-merch-ad"
 import { fetchCurrencies } from "@/lib/cbdc-api"
 import { getMappedCountryNames } from "@/lib/country-map"
@@ -142,6 +143,7 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <CardiffCollegeAd />
       <LeicesterMerchAd />
 
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
