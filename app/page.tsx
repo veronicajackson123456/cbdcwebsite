@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { VideoSection } from "@/components/video-embed"
 import { CardiffCollegeAd } from "@/components/cardiff-college-ad"
 import { LeicesterMerchAd } from "@/components/leicester-merch-ad"
+import { DolphinMotorhomesAd } from "@/components/dolphin-motorhomes-ad"
 import { fetchCurrencies } from "@/lib/cbdc-api"
 import { getMappedCountryNames } from "@/lib/country-map"
 
@@ -145,6 +146,7 @@ export default async function HomePage() {
 
       <CardiffCollegeAd />
       <LeicesterMerchAd />
+      <DolphinMotorhomesAd />
 
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         <VideoSection title="What exactly is a digital euro?" videoId="oknlcw4Ix7Q" source="Council of the EU" duration="1:17" />
